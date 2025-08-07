@@ -1,98 +1,40 @@
+// File: Login.java
 package LoginSystem;
-import java.util.Scanner;
 
-public class Login{
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-        System.out.print("Enter your full  name : ");
-        String name = input.nextLine();
-        System.out.println(" Welcome " + name + " \n "); 
-        
-        
-        System.out.println(" Thank you for entering your name.");
-        System.out.println();
+public class Login {
 
+    private static final Set<String> offensiveWords = new HashSet<>(Arrays.asList(
+        "hoe", "slut", "nigga", "bitch", "fuck", "shit", "ass", "whore"
+    ));
 
+    public static boolean isValidEmail(String email) {
+        return email.contains("@") && email.endsWith("@gmail.com");
+    }
 
-// /// Email ///
-        String email = "";
-        while(true){
-            System.out.println("Please enter your email Address:");
-            email = input.nextLine();
-
-            if(email.contains("@") && email.endsWith("@gmail.com")){
-                System.out.println("email address is correct");
-                System.out.println();
-                break;
-            }else{
-                System.out.println("email address does not meet the requirements. ");
-                System.out.println();
-                System.out.println("Please re-entetr the email again. ");
-                System.out.println();
-                
+    public static boolean isOffensiveUsername(String username) {
+        String lowercase = username.toLowerCase();
+        for (String word : offensiveWords) {
+            if (lowercase.contains(word)) {
+                return true;
             }
         }
-        
-        // Username selection///
+        return false;
+    }
 
-        String[] prohibihtedWords = {"hoe", "idiot", "slut", "bitch", "asshole",};
-        String user = "";
+    public static boolean isStrongPassword(String password) {
+        if (password.length() < 6) return false;
 
-        while(true){
-            System.out.println("Please enter your preferred username:");
-            user = input.nextLine();
-
-            boolean isOffensive = false; 
-
-            for(int i = 0; i <prohibihtedWords.length; i++){
-                if(user.toLowerCase().contains(prohibihtedWords[i].toLowerCase())){
-                    isOffensive = true;
-                    break;
-                }
-            }
-            if(isOffensive){
-                System.out.println("PLEASE RE- ENTER YOUR USERNAME AS ITS OFFENSIVE TO OUR GUIDELINES.");
-                System.out.println();
-            }else{
-                System.out.println("Usename meets the needs of the company");
-                System.out.println();
-                break;
-
-            }
+        boolean hasUpper = false, hasLower = false, hasDigit = false, hasSymbol = false;
+        for (char ch : password.toCharArray()) {
+            if (Character.isUpperCase(ch)) hasUpper = true;
+            else if (Character.isLowerCase(ch)) hasLower = true;
+            else if (Character.isDigit(ch)) hasDigit = true;
+            else hasSymbol = true;
         }
-
-
-
-        ///Password///
-
-        while(true){
-            System.out.print(" Now create your password:");
-            String pass = input.nextLine();
-    
-            if(pass.length()<=6){
-                System.out.println("Please use more than 6 characters");
-    
-            }else{
-                System.out.print(" Confirm your password: ");
-                System.out.println();
-                String checkPass = input.nextLine();
-
-                if(pass.equals(checkPass)){
-                    System.out.println("You have entered the password correctly");
-                    System.out.println();
-                    break;
-                
-                } else{
-                    System.out.println(" Paswords do not match");
-                }
-            }
-    
-        }
-
-
-} 
-
+        return hasUpper && hasLower && hasDigit && hasSymbol;
+    }
 }
-
- 
