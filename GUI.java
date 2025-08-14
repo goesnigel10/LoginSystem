@@ -4,8 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * This is shows the graphics of the login system 
+ * Includes the logic that detects offensive username
+ * Linked to Login class.
+ * 
+ * @author Nigel Goes 
+ * @version 1.0
+ */
 public class GUI {
+    /**
+     * This is the main entry for the graphics to be displayed.
+     * This method sets up and displays the main application window (JFrame)
+     * @param args
+     */
     public static void main(String[] args) {
         // Creating the window
         JFrame frame1 = new JFrame("Welcome to the Login Page:");
@@ -20,6 +32,14 @@ public class GUI {
 
         frame1.setVisible(true);
     }
+
+    /**
+     * Adds all the UI panels 
+     * It includes all sorts of labels, text field, register button and user input
+     * It has registration logic 
+     * Input validation
+     * @param panel1
+     */
 
     private static void placeComponents(JPanel panel1) {
         // Labels and input fields
@@ -82,7 +102,7 @@ public class GUI {
                 } else if (Login.isStrongPassword(password)) {
                     messageLabel.setText("Weak password. Use upper, lower, number & symbol.");
                 } else {
-                    messageLabel.setText("✅ Registration successful!");
+                    messageLabel.setText("Thank You for completing the registration!!");
                 }
             }
         });
